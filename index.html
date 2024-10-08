@@ -30,6 +30,7 @@
             width: 80%;
             max-width: 700px;
             margin: auto;
+            position: relative;
         }
 
         textarea, input {
@@ -68,6 +69,19 @@
             text-align: center;
             margin-top: 30px;
         }
+
+        .icons {
+            display: inline-block;
+            margin-left: 10px;
+            cursor: pointer;
+            color: #4A90E2;
+            font-size: 1.5em;
+            vertical-align: middle;
+        }
+
+        .icons:hover {
+            color: #357ABD;
+        }
     </style>
 </head>
 <body>
@@ -80,6 +94,9 @@
         <h2><i class="fas fa-lock icon"></i> Entrez votre message à chiffrer</h2>
 
         <textarea id="message" rows="4" placeholder="Tapez votre message ici..."></textarea>
+        <span class="icons" onclick="collerMessage()"><i class="fas fa-paste"></i></span>
+        <span class="icons" onclick="copierMessage()"><i class="fas fa-copy"></i></span>
+
         <input type="number" id="key" placeholder="Entrez votre clé secrète (ex: 123)"><br>
 
         <button onclick="chiffrer()"><i class="fas fa-shield-alt"></i> Chiffrer</button>
@@ -87,6 +104,7 @@
 
         <h3>Résultat :</h3>
         <textarea id="resultat" rows="4" readonly placeholder="Le résultat s'affichera ici..."></textarea>
+        <span class="icons" onclick="copierResultat()"><i class="fas fa-copy"></i></span>
     </div>
 
     <footer>
@@ -117,6 +135,31 @@
 
             document.getElementById("resultat").value = texte_dechiffre;
         }
+
+        // Copier le texte du message
+        function copierMessage() {
+            let message = document.getElementById("message");
+            message.select();
+            document.execCommand("copy");
+            alert("Message copié !");
+        }
+
+        // Coller le texte dans la zone de message
+        function collerMessage() {
+            navigator.clipboard.readText().then(text => {
+                document.getElementById("message").value = text;
+            }).catch(err => {
+                alert("Erreur de collage !");
+            });
+        }
+
+        // Copier le texte du résultat chiffré/déchiffré
+        function copierResultat() {
+            let resultat = document.getElementById("resultat");
+            resultat.select();
+            document.execCommand("copy");
+            alert("Résultat copié !");
+        }
     </script>
 </body>
-      </html>
+    </html>
