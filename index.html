@@ -1,11 +1,11 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FortifyCrypt - Chiffrez vos messages</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
+<!doctype html>
+<html lang="fr"> 
+ <head> 
+  <meta charset="UTF-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <title>FortifyCrypt - Chiffrez vos messages</title> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> 
+  <style>
         body {
             font-family: 'Arial', sans-serif;
             background-color: #f0f0f0;
@@ -21,7 +21,25 @@
             text-align: center;
         }
 
+        nav {
+            background-color: #1A252F;
+            padding: 10px;
+        }
+
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #4A90E2;
+        }
+
         .container {
+            display: none;
             margin-top: 50px;
             background-color: #ffffff;
             border-radius: 15px;
@@ -82,36 +100,52 @@
         .icons:hover {
             color: #357ABD;
         }
-    </style>
-</head>
-<body>
-    <header>
-        <h1>FortifyCrypt</h1>
-        <p>Chiffrez et protégez vos messages avec FortifyCrypt</p>
-    </header>
+    </style> 
+ </head> 
+ <body> 
+  <header> 
+   <h1>FortifyCrypt</h1> 
+   <p>Chiffrez et protégez vos messages avec FortifyCrypt</p> 
+  </header> <!-- Menu de navigation --> 
+  <nav> <a href="#" onclick="afficherSection('cryptage')">Cryptage</a> <a href="#" onclick="afficherSection('aide')">Aide</a> <a href="#" onclick="afficherSection('apropos')">À propos</a> 
+  </nav> <!-- Section Cryptage --> 
+  <div id="cryptage" class="container"> 
+   <h2><i class="fas fa-lock icon"></i> Entrez votre message à chiffrer</h2> <textarea id="message" rows="4" placeholder="Tapez votre message ici..."></textarea> <span class="icons" onclick="collerMessage()"><i class="fas fa-paste"></i></span> <span class="icons" onclick="copierMessage()"><i class="fas fa-copy"></i></span> 
+   <input type="number" id="key" placeholder="Entrez votre clé secrète (ex: 123)"> 
+   <br> <button onclick="chiffrer()"><i class="fas fa-shield-alt"></i> Chiffrer</button> <button onclick="dechiffrer()"><i class="fas fa-unlock-alt"></i> Déchiffrer</button> 
+   <h3>Résultat :</h3> <textarea id="resultat" rows="4" readonly placeholder="Le résultat s'affichera ici..."></textarea> <span class="icons" onclick="copierResultat()"><i class="fas fa-copy"></i></span> 
+  </div> <!-- Section Aide --> 
+  <div id="aide" class="container"> 
+   <h2><i class="fas fa-question-circle icon"></i> Aide</h2> 
+   <p>Pour utiliser FortifyCrypt :</p> 
+   <ul style="text-align: left;"> 
+    <li>Entrez votre message dans la section cryptage</li> 
+    <li>Saisissez une clé secrète numérique</li> 
+    <li>Cliquez sur "Chiffrer" pour protéger votre message</li> 
+    <li>Pour déchiffrer un message, entrez le texte crypté et la clé utilisée pour le chiffrer</li> 
+   </ul> 
+  </div> <!-- Section À propos --> 
+  <div id="apropos" class="container"> 
+   <h2><i class="fas fa-info-circle icon"></i> À propos</h2> 
+   <p>FortifyCrypt est un outil simple et efficace pour protéger vos messages grâce à un système de cryptage personnalisé.</p> 
+   <p>Développé en 2024, FortifyCrypt vise à offrir une solution gratuite et accessible à tous ceux qui souhaitent sécuriser leurs communications.</p> 
+  </div> 
+  <footer> 
+   <p>© 2024 FortifyCrypt. Tous droits réservés.</p> 
+  </footer> 
+  <script>
+        // Affiche la section souhaitée
+        function afficherSection(sectionId) {
+            var sections = document.querySelectorAll('.container');
+            sections.forEach(function(section) {
+                section.style.display = 'none';
+            });
+            document.getElementById(sectionId).style.display = 'block';
+        }
 
-    <div class="container">
-        <h2><i class="fas fa-lock icon"></i> Entrez votre message à chiffrer</h2>
+        // Affiche la section par défaut
+        afficherSection('cryptage');
 
-        <textarea id="message" rows="4" placeholder="Tapez votre message ici..."></textarea>
-        <span class="icons" onclick="collerMessage()"><i class="fas fa-paste"></i></span>
-        <span class="icons" onclick="copierMessage()"><i class="fas fa-copy"></i></span>
-
-        <input type="number" id="key" placeholder="Entrez votre clé secrète (ex: 123)"><br>
-
-        <button onclick="chiffrer()"><i class="fas fa-shield-alt"></i> Chiffrer</button>
-        <button onclick="dechiffrer()"><i class="fas fa-unlock-alt"></i> Déchiffrer</button>
-
-        <h3>Résultat :</h3>
-        <textarea id="resultat" rows="4" readonly placeholder="Le résultat s'affichera ici..."></textarea>
-        <span class="icons" onclick="copierResultat()"><i class="fas fa-copy"></i></span>
-    </div>
-
-    <footer>
-        <p>&copy; 2024 FortifyCrypt. Tous droits réservés.</p>
-    </footer>
-
-    <script>
         function chiffrer() {
             let message = document.getElementById("message").value;
             let cle = parseInt(document.getElementById("key").value);
@@ -160,6 +194,6 @@
             document.execCommand("copy");
             alert("Résultat copié !");
         }
-    </script>
-</body>
-    </html>
+    </script> 
+ </body>
+</html>
